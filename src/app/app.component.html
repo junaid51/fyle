@@ -1,0 +1,52 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="navbar-brand mb-0 h1">Bank Branches</div>
+</nav>
+<nav class="navbar navbar-light bg-light">
+  <div class="dropdown">
+    <button class="btn btn-secondary" type="button">
+      City
+    </button>
+    <div class="dropdown-content">
+      <ul style="list-style-type:none;"
+          *ngFor="let city of cities">
+        <li (click)="getBanks(city)">{{city}}</li>
+      </ul>
+    </div>
+  </div>
+  <form class="form-inline my-2 my-lg-0">
+    <input
+      class="form-control mr-sm-2"
+      type="search"
+      placeholder="Search"
+      name="search"
+      [(ngModel)]="search">
+  </form>
+</nav>
+
+<ngx-spinner></ngx-spinner>
+
+  <table class="table table-hover" *ngIf="selectedBranch">
+      <thead>
+        <tr>
+          <th>IFSC</th>
+          <th>Branch</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>District</th>
+          <th>State</th>
+          <th>Bank Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bank of filteredBanks | paginate: {itemsPerPage: 10, currentPage: p}">
+          <td>{{bank.ifsc}}</td>
+          <td>{{bank.branch}}</td>
+          <td>{{bank.address}}</td>
+          <td>{{bank.city}}</td>
+          <td>{{bank.district}}</td>
+          <td>{{bank.state}}</td>
+          <td>{{bank.bank_name}}</td>
+        </tr>
+      </tbody>
+    </table>    
+    <pagination-controls class="controls" (pageChange)="p = $event"></pagination-controls>
